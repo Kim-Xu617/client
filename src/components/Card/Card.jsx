@@ -8,14 +8,26 @@ const Card = ({item}) => {
     <Link className="link" to={`/product/${item.id}`}>
       <div className="card">
         <div className="image">
-          {item.isNew&&<span>New Season</span>}
-          <img src={item.img} className="mainImg" alt="item 1" />
-          {item.img2&&<img src={item.img2} className="secondImg" alt="item 2" />}
+          {item.attributes.isNew&&<span>New Season</span>}
+          <img 
+            src={
+              process.env.REACT_APP_UPLOAD_URL+item.attributes?.img?.data?.attributes?.url
+            } 
+            className="mainImg" 
+            alt="item 1" 
+          />
+          {item.attributes.img2&&<img 
+            src={
+              process.env.REACT_APP_UPLOAD_URL+item.attributes?.img2?.data?.attributes?.url
+            } 
+            className="secondImg" 
+            alt="item 2" />
+          }
         </div>
-        <h2>{item.title}</h2>
+        <h2>{item.attributes.title}</h2>
         <div className="prices">
-          <h3>${item.oldPrice}</h3>
-          <h3>${item.price}</h3>
+          <h3>${item.attributes.price + 20}</h3>
+          <h3>${item.attributes.price}</h3>
         </div>
       </div>
     </Link>

@@ -1,49 +1,27 @@
 import React from 'react'
 import "./List.scss"
 import Card from '../Card/Card'
+import useFetch from '../../hooks/useFetch'
 
 
-const List = ({catId,sort,maxPrice})=>{
-    const data=[
-        {
-            id:1,
-            img: "https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgbSw=1600",
-            img2: "https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress6cs=tinysrgb&w=1600",
-            title: "Long sleeve Graphic T-shirt",
-            isNew: true,
-            oldPrice: 19,
-            price: 12,
-        },
-        {
-            id: 2,
-            img: "https://images.pexels.com/photos/1759622/pexels-photo-1759622.jpeg?auto=compress&cs=tinysrgblw=1600",
-            title: "Coat",
-            isNew: true,
-            oldPrice: 19,
-            price: 12,
-        },
-        {
-            id: 3,
-            img: "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg?auto=compressics=tinysrgblw=1600",
-            title: "Skirt",
-            oldPrice: 19,
-            price: 12,
-        },
-        {
-            id:4,
-            img: "https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb8w=160",
-            title: "Hat",
-            oldPrice: 19,
-            price: 12,
-        },
-    ]
-    const data2 = data.filter(element=>
-        element.price<maxPrice
-    )
+const List = ({catId,sort,maxPrice, subCats})=>{
+
+    const {data, loading, error} = useFetch(
+        `/products?populate=*&[filters][categories][id][$eq]=${catId}
+        ${subCats.map(item=>`&[filters][sub_categories][id][$eq]=${item}`
+        )}&[filters][price][$lte]=${maxPrice}&sort=price:${sort}`
+    );
+    console.log(data)
   return (
     <div className='list'>
-        {data2.map(item => 
-            <Card item={item}/>
+        {   
+            error
+                ? console.log(error)
+                :
+            loading 
+                ? "loading"
+                :data?.map(item => 
+                <Card item={item} key={item.attributes.id}/>
         )}          
     </div>
   )

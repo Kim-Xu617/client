@@ -22,7 +22,7 @@ const Catergories = () => {
                     src="https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600"
                     alt=""
                 />
-                <Link to="products/2" className='link'>
+                <Link to="products/1" className='link'>
                     <button>
                         Women
                     </button>
@@ -51,7 +51,7 @@ const Catergories = () => {
                             src="https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=1600"
                             alt=""
                         />
-                        <Link to="products/4" className='link'>
+                        <Link to="products/2" className='link'>
                             <button>
                                 Men
                             </button>
