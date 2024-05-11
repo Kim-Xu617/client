@@ -9,7 +9,7 @@ import './Navbar.scss'
 import Cart from '../Cart/Cart';
 import { useSelector } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, onChangeLoggedIn }) => {
   const [open, setOpen] = useState(false)
   const number = useSelector(state=>state.cart.products.length)
   return (
@@ -44,9 +44,15 @@ const Navbar = () => {
           <div className="item">
             <Link to="/products/3" className='link'>About</Link>
           </div>
-          <div className="item">
-            <Link to="/products/3" className='link'>Contacts</Link>
-          </div>
+
+          {isLoggedIn?
+            (<div className="item">
+              <Link to="/login">Login</Link>
+            </div>)
+            :(<div className="item">
+              <button onClick={onChangeLoggedIn}>Logout</button>
+            </div>)
+          }
           <div className="item">
             <Link to="/products/3" className='link'>Stores</Link>
           </div>
